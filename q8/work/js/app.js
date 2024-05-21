@@ -1,16 +1,3 @@
-// API
-// const settings = {
-//   "url": `https://ci.nii.ac.jp/books/opensearch/search?title=${searchWord}&format=json&p=${pageCount}&count=20`,
-//   "method": "GET",
-// }
-// $.ajax(settings).done(function (response) {
-//   const result = response['@graph'];
-//   displayResult(result)
-// }).fail(function (err) {
-//   displayError(err)
-// });
-
-
 $(document).ready(function() {
   const searchBtn = $('.search-btn');
   const resetBtn = $('.reset-btn');
@@ -56,10 +43,15 @@ $(document).ready(function() {
     throw new Error('通信エラーが発生しました: ' + err.statusText);
   }
 
+  function displaySearchError(message) {
+    lists.empty();
+    lists.append(`<li class="lists-item message">${message}</li>`);
+  }
+
   searchBtn.on('click', function() {
     const searchWord = searchInput.val();
     if (!searchWord) {
-      alert('検索ワードを入力してください。');
+      displaySearchError('検索ワードを入力してください。');
       return;
     }
 
